@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
+import PropTypes from "prop-types";
 
 export function RegistrationView(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
-    const [ birthday, setBirthday ] = useState('');
+    const [ email, setEmail ] = useState('');
+    const [ Birthday, setBirthday ] = useState('');
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password);
+        console.log(username, password, email, Birthday);
         // send username and password to API
+        props.onRegistration(username);
     };
 
-return(
+return (
     <form>
         <label>
             Username:
@@ -22,10 +25,18 @@ return(
             <input type="text" value={password} onChange={e => setPassword(e.target.value)} />
         </label>
         <label>
+            Email:
+            <input type="email" value={email} onChange={e => setEmail(e.target.value)} />
+        </label>
+        <label>
             Birthday:
-            <input type="date" value={birthday} onChange={e => setBirthday(e.target.value)} />
+            <input type="date" value={Birthday} onChange={e => setBirthday(e.target.value)} />
         </label>
         <button type="submit" onClick={handleSubmit}>Register</button>
     </form>
 );
 }
+
+RegistrationView.propTypes = {
+    onRegistration: PropTypes.func.isRequired
+};
