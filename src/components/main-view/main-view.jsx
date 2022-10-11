@@ -20,15 +20,13 @@ class MainView extends React.Component {
     }
 
     componentDidMount(){
-        axios.get('https://the-cine-file.herokuapp.com/movies')
-            .then(response => {
-                this.setState({
-                    movies: response.data
-                });
-            })
-            .catch(error => {
-                console.log(error);
+        let accessToken = localStorage.getItem('token');
+        if (accessToken !== null) {
+            this.setState({
+                user: localStorage.getItem('user')
             });
+            this.getMovies(accessToken);
+        }
     }
     
     setSelectedMovie(movie) {
@@ -37,30 +35,60 @@ class MainView extends React.Component {
         });
     }
 
-    onRegistration(register) {
+    onRegistration(authData) {
+        console.log(authData);
         this.setState({
-            register
+            user: authData.user.Username
+        // this.setState({
+        //     register
         });
     }
 
-    onLoggedIn(user) {
+    onLoggedIn(authData) {
+        console.log(authData);
         this.setState({
-            user
+            user: authData.user.Username
         });
+
+        localStorage.setItem('token', authData.token);
+        localStorage.setItem('user', authData.user.Username);
+        this.getMovies(authData.token);
+    }
+
+    onLoggedOut() {
+        localStorage.removeItem('token');
+        localStorage.removeItem('user');
+        this.setState({
+            user: null
+        });
+    }
+
+    getMovies(token) {
+        axios.get('https://the-cine-file.heroku.app/movies', {
+            headers: { Authorization: `Bearer ${token}`}
+        })
+        .then(response => {
+            //Assign the result to the state
+            this.setState({
+                movies: response.data
+            });
+        })
     }
 
     render() {
         const { movies, selectedMovie, user, register } = this.state;
 
-        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+        if (!register) return (<RegistrationView onRegistration={(user) => this.onRegistration(register)}/>);
 
-        if (!register) return (<RegistrationView onRegistration={(register) => this.onRegistration(register)}/>);
+        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
 
         /* If there is no user, the LoginView is rendered. If there is a user
         logged in, the user details are *passed as a prop to the LoginView */
 
         // Before the movies have been loaded
         if (movies.length === 0) return <div className="main-view" />;
+
+        <button onClick={() => {this.onLoggedOut()}}>Logout</button>
 
         return (
             <Row className="main-view justify-content-md-center">
