@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 import { Button, Col, Row, Container, Card, Form, CardGroup } from 'react-bootstrap';
 
 export function LoginView(props) {
@@ -7,16 +8,25 @@ export function LoginView(props) {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(username, password);
         //send a request to server for auth.
+        axios.post('https://the-cine-file.herokuapp.com/login', {
+            Username: username,
+            Password: password
+        })
         //then call props.onLoggedIn(username)
-        props.onLoggedIn(username);
+        .then(response => {
+            const data = response.data;
+            props.onLoggedIn(data);
+        })
+        .catch(e => {
+            console.log('no such user')
+        });
     };
 
     return(
         <Container>
             <Row>
-                <Col sm={4} md={8}>
+                <Col md={8}>
                     <CardGroup>
                         <Card style={{ marginTop: 100, marginBottom: 50, width: '30rem' }}>
                             <Card.Body>
@@ -60,6 +70,5 @@ export function LoginView(props) {
                 </Col>
             </Row>
         </Container>
-        
     );
 }

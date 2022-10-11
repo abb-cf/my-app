@@ -18,7 +18,7 @@ export function RegistrationView(props) {
 return (
     <Container>
         <Row>
-            <Col sm={4} md={8}>
+            <Col md={8}>
                 <CardGroup>
                     <Card style={{ marginTop: 100, marginBottom: 50, width: '30rem' }}>
                         <Card.Body>
