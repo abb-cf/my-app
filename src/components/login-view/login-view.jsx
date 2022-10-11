@@ -16,7 +16,7 @@ export function LoginView(props) {
     return(
         <Container>
             <Row>
-                <Col md={8}>
+                <Col sm={4} md={8}>
                     <CardGroup>
                         <Card style={{ marginTop: 100, marginBottom: 50, width: '30rem' }}>
                             <Card.Body>

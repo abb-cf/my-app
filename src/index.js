@@ -4,7 +4,7 @@ import MainView from './components/main-view/main-view';
 // import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from 'react-bootstrap/Container';
 
-import './index.css';
+import './index.scss';
 
 class MyFlixApplication extends React.Component
 {
