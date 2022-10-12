@@ -7,7 +7,7 @@ export function RegistrationView(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
     const [ email, setEmail ] = useState('');
-    const [ Birthday, setBirthday ] = useState('');
+    const [ birthday, setBirthday ] = useState('');
     const [ values, setValues ] = useState({
         usernameErr: '',
         passwordErr: '',
@@ -49,7 +49,7 @@ export function RegistrationView(props) {
                 Username: username,
                 Password: password,
                 Email: email,
-                Birthday: Birthday
+                Birthday: birthday
             })
             .then(response => {
                 const data = response.data;
@@ -113,7 +113,7 @@ return (
                                     <Form.Label>Birthday:</Form.Label>
                                     <Form.Control 
                                     type="Birthday"
-                                    value={Birthday}
+                                    value={birthday}
                                     onChange={e => setBirthday(e.target.value)}
                                     required />
                                 </Form.Group>
