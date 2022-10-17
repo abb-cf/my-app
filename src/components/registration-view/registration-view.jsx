@@ -55,7 +55,7 @@ export function RegistrationView(props) {
                 const data = response.data;
                 console.log(data);
                 alert('Registration successful, please login!');
-                window.open('/', '_self'); //the second argument '_self' is necessary so that the page will open in the current tab
+                props.onRegistration(true)
             })
             .catch(response => {
                 console.error(response);
@@ -63,6 +63,10 @@ export function RegistrationView(props) {
             });
         }
     };
+
+    const loginFlow = () => {
+        props.onRegistration(true)
+    }
 
 return (
     <Container>
@@ -125,6 +129,13 @@ return (
                                     onClick={handleSubmit}>
                                     Register
                                 </Button>
+                                <Button 
+                                    className="mt-1"
+                                    variant="secondary"
+                                    type="submit" 
+                                    onClick={loginFlow}>
+                                    Login
+                            </Button>
                             </Form>
                         </Card.Body>
                     </Card>
