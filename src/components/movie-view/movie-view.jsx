@@ -33,7 +33,7 @@ export class MovieView extends React.Component {
                             </Link>
                             <Button
                                 variant="link"
-                                onClick={() => { onBackClick(null); }}>
+                                onClick={() => { onBackClick(); }}>
                                 Back
                             </Button>
                         </Card>

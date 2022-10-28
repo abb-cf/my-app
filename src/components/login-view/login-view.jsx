@@ -39,11 +39,11 @@ export function LoginView(props) {
                 Password: password
             })
             //then call props.onLoggedIn(username)
-            .then(response =>{
+            .then((response) =>{
                 const data = response.data;
                 props.onLoggedIn(data);
             })
-            .catch(e => {
+            .catch((e) => {
                 console.log('no such user')
             });
         }
@@ -95,17 +95,24 @@ export function LoginView(props) {
                                         {passwordErr && <p>{[passwordErr]}</p>}
                                     </Form.Group>
 
+                                    <div>
                                     <Button 
                                         variant="primary" 
                                         type="submit" 
                                         onClick={handleSubmit}>
                                         Login
                                     </Button>
+                                    </div>
+
+                                    <p>
+                                    Dont have an account? <br />
                                     <Button 
+                                        href={"/register"}
                                         variant="secondary" 
                                         type="submit">
                                         Register
                                     </Button>  
+                                    </p>
                                 </Form>
                             </Card.Body>
                         </Card>

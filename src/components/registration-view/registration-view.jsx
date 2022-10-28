@@ -56,6 +56,7 @@ export function RegistrationView(props) {
                 console.log(data);
                 alert('Registration successful, please login!');
                 props.onRegistration(true)
+                // window.open("/", "_self");
             })
             .catch(response => {
                 console.error(response);
@@ -122,6 +123,7 @@ return (
                                     required />
                                 </Form.Group>
                                 
+                                <div>
                                 <Button 
                                     className="mt-1"
                                     variant="primary"
@@ -129,11 +131,16 @@ return (
                                     onClick={handleSubmit}>
                                     Register
                                 </Button>
+                                </div>
+                                <p></p>
+                                Already registered? <br />
                                 <Button 
+                                    href={"/"}
                                     className="mt-1"
                                     variant="secondary"
-                                    type="submit" 
-                                    onClick={loginFlow}>
+                                    // type="submit" 
+                                    // onClick={loginFlow}
+                                    >
                                     Login
                             </Button>
                             </Form>
