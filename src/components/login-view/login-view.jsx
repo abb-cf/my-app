@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import PropTypes from 'prop-types';
 import { Button, Col, Row, Container, Card, Form, CardGroup } from 'react-bootstrap';
 
 export function LoginView(props) {
@@ -86,24 +87,25 @@ export function LoginView(props) {
                                     <Form.Group controlId="formPassword">
                                         <Form.Label>Password:</Form.Label>
                                         <Form.Control 
-                                        type="text" 
+                                        type="password" 
                                         value={password}
                                         onChange={e => setPassword(e.target.value)}
                                         required
                                         placeholer="Enter your password" />
                                         {/* code added here to display validation error */}
-                                        {passwordErr && <p>{[passwordErr]}</p>}
+                                        {passwordErr && <p>{passwordErr}</p>}
                                     </Form.Group>
 
                                     <div>
                                     <Button 
+                                        className="mt-1"
                                         variant="primary" 
                                         type="submit" 
                                         onClick={handleSubmit}>
                                         Login
                                     </Button>
                                     </div>
-
+                                    <p></p>
                                     <p>
                                     Dont have an account? <br />
                                     <Button 
@@ -121,4 +123,8 @@ export function LoginView(props) {
             </Row>
         </Container>
     );
+}
+
+LoginView.propTypes = {
+    onLoggedIn: PropTypes.func.isRequired
 }

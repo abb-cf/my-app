@@ -4,6 +4,8 @@ import { Button, Card } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
 
+import './movie-card.scss'
+
 export class MovieCard extends React.Component {
     render() {
         const { movie } = this.props;
@@ -26,16 +28,16 @@ export class MovieCard extends React.Component {
 MovieCard.propTypes = {
     movie: PropTypes.shape({
         Title: PropTypes.string.isRequired,
-        Description: PropTypes.string.isRequired,
-        ImagePath: PropTypes.string.isRequired,
-        // Genre: PropTypes.shape({
-        //     Name: PropTypes.string.isRequired,
-        //     Description: PropTypes.string.isRequired
-        // }),
-        // Director: PropTypes.shape({
-        //     Name: PropTypes.string.isRequired,
-        //     Description: PropTypes.string
-        // })
+    //     Description: PropTypes.string.isRequired,
+    //     ImagePath: PropTypes.string.isRequired,
+    //     Genre: PropTypes.shape({
+    //         Name: PropTypes.string.isRequired,
+    //         Description: PropTypes.string.isRequired
+    //     }),
+    //     Director: PropTypes.shape({
+    //         Name: PropTypes.string.isRequired,
+    //         Description: PropTypes.string
+    //     })
     }).isRequired,
-    onMovieClick: PropTypes.func.isRequired
+    // onMovieClick: PropTypes.func.isRequired
 };
