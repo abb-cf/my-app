@@ -1,9 +1,32 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { Card, Row, Col, Container, Button } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
+import axios from 'axios';
 
 export class MovieView extends React.Component {
+
+    addMovieToFavorites(e) {
+        const { movie } = this.props;
+        const username = localStorage.getItem("user");
+        const token = localStorage.getItem("token");
+
+        e.preventDefault();
+        axios
+            .post(
+                `https://the-cine-file.herokuapp.com/users/${username}/Favorites/${movie._id}`,
+                {username: localStorage.getItem("user") },
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            )
+            .then((response) => {
+                console.log(response);
+                alert("Movie added");
+            })
+            .catch((error) => console.error(error));
+    }
 
     render() {
         const { movie, onBackClick } = this.props;
@@ -28,9 +51,14 @@ export class MovieView extends React.Component {
                             <Link to={`/directors/${movie.Director.Name}`}>
                                 <Button variant="link">Director</Button>
                             </Link>
-                            <Link to={`/genres/${movie.Genre.name}`}>
+                            <Link to={`/genres/${movie.Genre.Name}`}>
                                 <Button variant="link">Genre</Button>
                             </Link>
+                            <Button
+                                variant="success"
+                                onClick={(e) => this.addMovieToFavorites(e)}>
+                                Add to favorites
+                            </Button>
                             <Button
                                 variant="link"
                                 onClick={() => { onBackClick(); }}>
@@ -43,3 +71,22 @@ export class MovieView extends React.Component {
         );
     }
 }
+
+export default MovieView;
+// MovieView.propTypes = {
+//     movie: PropTypes.shape({
+//         Title: PropTypes.string.isRequired,
+//         Description: PropTypes.string.isRequired,
+//         ImagePath: PropTypes.string.isRequired,
+//         Genre: PropTypes.shape({
+//             Name: PropTypes.string.isRequired,
+//             Description: PropTypes.string.isRequired,
+//         }).isRequired,
+//         Director: PropTypes.shape({
+//                 Name: PropTypes.string.isRequired,
+//                 Bio: PropTypes.string.isRequired,
+//                 Birth: PropTypes.string.isRequired,
+//             }).isRequired,
+//         }).isRequired,
+//         onBackClick: PropTypes.func.isRequired,
+// };

@@ -55,7 +55,7 @@ export function RegistrationView(props) {
                 const data = response.data;
                 console.log(data);
                 alert('Registration successful, please login!');
-                props.onRegistration(true)
+                // props.onRegistration(true)
                 window.open("/", "_self");
             })
             .catch(response => {
@@ -65,9 +65,9 @@ export function RegistrationView(props) {
         }
     };
 
-    const loginFlow = () => {
-        props.onRegistration(true)
-    }
+    // const loginFlow = () => {
+    //     props.onRegistration(true)
+    // }
 
 return (
     <Container>
@@ -139,7 +139,7 @@ return (
                                     className="mt-1"
                                     variant="secondary"
                                     type="submit" 
-                                    onClick={loginFlow}
+                                    // onClick={loginFlow}
                                     >
                                     Login
                             </Button>

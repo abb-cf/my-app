@@ -12,13 +12,13 @@ export class GenreView extends React.Component {
         return (
             <Card bg="dark" text="light">
                 <Card.Header className="text-center" as="h5">
-                {genre.Name}
+                {genre.Genre.Name}
                 </Card.Header>
                 <Card.Body className="genre-textarea">
                     <Card bg="dark" text="light">
                         <div className="movie-genre-description">
                             <span className="label">Description: </span>
-                            <span className="value">{genre.Description}</span>
+                            <span className="value">{genre.Genre.Description}</span>
                         </div>
                         <span className="label headline-genre-mini-cards">
                         Selected movies that belong to this genre

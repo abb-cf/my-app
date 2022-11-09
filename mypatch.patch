@@ -1,0 +1,141 @@
+diff --git a/src/components/director-view/director-view.jsx b/src/components/director-view/director-view.jsx
+index b7cfe72..d886bca 100644
+--- a/src/components/director-view/director-view.jsx
++++ b/src/components/director-view/director-view.jsx
+@@ -14,42 +14,46 @@ export class DirectorView extends React.Component {
+         return (
+             <Card bg="dark" text="light">
+                 <Card.Header className="text-center" as="h5">
+-                    {director.Name}
++                    {director.Director.Name}
+                 </Card.Header>
+                 <Card.Body className="director-text-area">
+                     <Card bg="dark" border="dark" text="light">
+                         <div className="movie-director-birth">
+                             <span className="label">Born in</span>
+-                            <span className="value">{director.Birth}</span>
++                            <span className="value"> {director.Director.Birth}</span>
+                         </div>
+                         <div className="movie-director-death">
+                             <span className="label">Died in</span>
+-                            <span className="value">{director.Bio}</span>
++                            <span className="value"> {director.Director.Death}</span>
+                         </div>
++                        <div className="movie-director-death">
++                        <span className="label">Bio: </span>
++                        <span className="value"> {director.Director.Bio}</span>
++                    </div>
+                         <span className="label headline-director-mini-cards">
+                             Selected movies by this director
+                         </span>
+                         <CardGroup className="card-group-director-mini-cards">
+-                            {movies.map((m) => (
+-                                <Col 
+-                                    md={6}
+-                                    lg={3}
+-                                    key={m._id}
+-                                    className="director-movie-card-mini"
+-                                    >
+-                                    <Link to={`/movies/${m._id}`}>
+-                                        <Card className="h-100" bg="dark" text="light">
+-                                            <Card.Img
+-                                            variant="top"
+-                                            crossOrigin="anonymous | use-credentials"
+-                                            src={m.ImagePath} />
+-                                            <Card.Body>
+-                                                <Card.Title>{m.Title}</Card.Title>
+-                                            </Card.Body>
+-                                        </Card>
+-                                    </Link>
+-                                </Col>
+-                            ))}
++                        {movies.map((m) => (
++                            <Col 
++                                md={6}
++                                lg={3}
++                                key={m._id}
++                                className="director-movie-card-mini"
++                                >
++                                <Link to={`/movies/${m._id}`}>
++                                    <Card className="h-100" bg="dark" text="light">
++                                        <Card.Img
++                                        variant="top"
++                                        crossOrigin="anonymous | use-credentials"
++                                        src={m.ImagePath} />
++                                        <Card.Body>
++                                            <Card.Title>{m.Title}</Card.Title>
++                                        </Card.Body>
++                                    </Card>
++                                </Link>
++                            </Col>
++                        ))}
+                         </CardGroup>
+                     </Card>
+                 </Card.Body>
+diff --git a/src/components/genre-view/genre-view.jsx b/src/components/genre-view/genre-view.jsx
+index 1d5f7e9..ff18edc 100644
+--- a/src/components/genre-view/genre-view.jsx
++++ b/src/components/genre-view/genre-view.jsx
+@@ -12,13 +12,13 @@ export class GenreView extends React.Component {
+         return (
+             <Card bg="dark" text="light">
+                 <Card.Header className="text-center" as="h5">
+-                {genre.Name}
++                {genre.Genre.Name}
+                 </Card.Header>
+                 <Card.Body className="genre-textarea">
+                     <Card bg="dark" text="light">
+                         <div className="movie-genre-description">
+                             <span className="label">Description: </span>
+-                            <span className="value">{genre.Description}</span>
++                            <span className="value">{genre.Genre.Description}</span>
+                         </div>
+                         <span className="label headline-genre-mini-cards">
+                         Selected movies that belong to this genre
+diff --git a/src/components/main-view/main-view.jsx b/src/components/main-view/main-view.jsx
+index f03a146..db8e32f 100644
+--- a/src/components/main-view/main-view.jsx
++++ b/src/components/main-view/main-view.jsx
+@@ -82,6 +82,7 @@ export class MainView extends React.Component {
+         
+         let { movies } = this.state;
+         let { user } = this.state;
++
+         return (
+             <Router>
+                 <NavBar user={user} />
+@@ -149,8 +150,9 @@ export class MainView extends React.Component {
+                             if (movies.length === 0) return (<div className="main-view" />);
+                             return (
+                                 <Col md={8}>
+-                                    <GenreView 
+-                                    movie={movies.find(m=> m._id === match.params.id)} 
++                                    <GenreView
++                                    genre={movies.find(m=> m.Genre.Name === match.params.name)}
++                                    movies={movies.filter(m=> m.Genre.Name === match.params.name)} 
+                                     onBackClick={() => history.goBack()} 
+                                     />
+                                 </Col>
+@@ -164,7 +166,8 @@ export class MainView extends React.Component {
+                             return (
+                                 <Col md={8}>
+                                     <DirectorView 
+-                                    movie={movies.find(m=> m._id === match.params.id)} 
++                                    director={movies.find(m=> m.Director.Name === match.params.name)}
++                                    movies={movies.filter(m=> m.Director.Name === match.params.name)}
+                                     onBackClick={() => history.goBack()} />
+                                 </Col>
+                             );        
+diff --git a/src/components/movie-view/movie-view.jsx b/src/components/movie-view/movie-view.jsx
+index 2e615f2..10c51d6 100644
+--- a/src/components/movie-view/movie-view.jsx
++++ b/src/components/movie-view/movie-view.jsx
+@@ -28,7 +28,7 @@ export class MovieView extends React.Component {
+                             <Link to={`/directors/${movie.Director.Name}`}>
+                                 <Button variant="link">Director</Button>
+                             </Link>
+-                            <Link to={`/genres/${movie.Genre.name}`}>
++                            <Link to={`/genres/${movie.Genre.Name}`}>
+                                 <Button variant="link">Genre</Button>
+                             </Link>
+                             <Button

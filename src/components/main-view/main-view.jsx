@@ -21,7 +21,8 @@ export class MainView extends React.Component {
 
         this.state = {
             movies: [],
-            user: null
+            user: null,
+            FavoriteMovies: []
             // registered: false
         };
     }
@@ -77,11 +78,61 @@ export class MainView extends React.Component {
     //     });
     // }
 
+    // addFavorite(movieId) {
+    //     let { user, favoriteMovies } = this.props;
+    //     const token = localStorage.getItem('token');
+    //     console.log(favoriteMovies.data);
+    //     if (favoriteMovies.some((favId) => favId === movieId)) {
+    //       console.log('Movie already added to favorites!');
+    //     } else {
+    //       if (token !== null && user !== null) {
+    //         this.props.addFavorite(movieId);
+    //         axios
+    //           .post(
+    //             `https://the-cine-file.herokuapp.com/users/${user}/movies/${movieId}`,
+    //             {},
+    //             {
+    //               headers: {
+    //                 Authorization: `Bearer ${token}`,
+    //               },
+    //             }
+    //           )
+    //           .then(() => {
+    //             console.log(`Movie successfully added to favorites!`);
+    //           })
+    //           .catch((e) => {
+    //             console.error(e);
+    //           });
+    //       }
+    //     }
+    //   }
+    
+    //   removeFavorite(movieId) {
+    //     let { user } = this.props;
+    //     const token = localStorage.getItem('token');
+    //     if (token !== null && user !== null) {
+    //       this.props.removeFavorite(movieId);
+    //       axios
+    //         .delete(
+    //           `https://the-cine-file.herokuapp.com/users/${user}/movies/${movieId}`,
+    //           {
+    //             headers: { Authorization: `Bearer ${token}` },
+    //           }
+    //         )
+    //         .then(() => {
+    //           console.log(`Movie successfully removed from favorites!`);
+    //         })
+    //         .catch((e) => {
+    //           console.error(e);
+    //         });
+    //     }
+    //   }
+    
+
     render() {
         // return(<div>Title</div>)
         
-        let { movies } = this.state;
-        let { user } = this.state;
+        let { movies, user, favoriteMovies } = this.state;
         return (
             <Router>
                 <NavBar user={user} />
@@ -150,8 +201,9 @@ export class MainView extends React.Component {
                             return (
                                 <Col md={8}>
                                     <GenreView 
-                                    movie={movies.find(m=> m._id === match.params.id)} 
-                                    onBackClick={() => history.goBack()} 
+                                    genre={movies.find(m=> m.Genre.Name === match.params.name )}
+                                    movies={movies.filter(m=> m.Genre.Name === match.params.name )}
+                                    onBackClick ={() => history.goBack()} 
                                     />
                                 </Col>
                             );        
@@ -164,8 +216,10 @@ export class MainView extends React.Component {
                             return (
                                 <Col md={8}>
                                     <DirectorView 
-                                    movie={movies.find(m=> m._id === match.params.id)} 
-                                    onBackClick={() => history.goBack()} />
+                                    director={movies.find(m=> m.Director.Name === match.params.name)}
+                                    movies={movies.filter(m=> m.Director.Name === match.params.name )} 
+                                    onBackClick={() => history.goBack()} 
+                                    />
                                 </Col>
                             );        
                         }}
@@ -177,7 +231,14 @@ export class MainView extends React.Component {
                         if (movies.length === 0) return (<div className="main-view" />);
                         return (
                         <Col>
-                            <ProfileView history={history} movies={movies} user={user === match.params.username} />
+                            <ProfileView 
+                                history={history} 
+                                movies={movies} 
+                                // favoriteMovies={favoriteMovies.map((movieId) => {
+                                    // return movies.find((m) => m._id === movieId);
+                                    // })}
+                                user={user === match.params.username} />
+                                
                         </Col>
                         );
                     }} />
