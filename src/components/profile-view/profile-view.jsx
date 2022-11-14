@@ -19,7 +19,7 @@ export class ProfileView extends React.Component {
   constructor() {
     super();
     this.state = {
-      username: null,
+      Username: null,
       Password: null,
       Email: null,
       Birthday: null,
@@ -33,17 +33,17 @@ export class ProfileView extends React.Component {
   }
 
   getUser = () => {
-    const username = localStorage.getItem("user");
+    const Username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
     // console.log("token", token);
     axios
-      .get(`https://the-cine-file.herokuapp.com/users/${username}`, {
+      .get(`https://the-cine-file.herokuapp.com/users/${Username}`, {
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((response) => {
         console.log(response, "response");
         this.setState({
-          username: response.data.Username,
+          Username: response.data.Username,
           Password: response.data.Password,
           Email: response.data.Email,
           Birthday: response.data.Birthday,
@@ -57,13 +57,13 @@ export class ProfileView extends React.Component {
 
   updateUser = (e) => {
     e.preventDefault();
-    const username = localStorage.getItem("user");
+    const Username = localStorage.getItem("user");
     const token = localStorage.getItem("token");
     axios
       .put(
-        `https://the-cine-file.herokuapp.com/users/${username}`,
+        `https://the-cine-file.herokuapp.com/users/${Username}`,
         {
-          username: this.state.username,
+          Username: this.state.Username,
           Password: this.state.Password,
           Email: this.state.Email,
           Birthday: this.state.Birthday,
@@ -74,12 +74,12 @@ export class ProfileView extends React.Component {
         // console.log("response", response);
         alert("Profile was successfully updated");
         this.setState({
-          username: response.data.Username,
+          Username: response.data.Username,
           Password: response.data.Password,
           Email: response.data.Email,
           Birthday: response.data.Birthday,
         });
-        localStorage.setItem("user", {username});
+        localStorage.setItem("user", {Username});
 
         window.location.pathname = "/";
       })
@@ -92,11 +92,11 @@ export class ProfileView extends React.Component {
     const confirmDelete = window.confirm("Confirm to remove");
 
     if (confirmDelete) {
-      const username = localStorage.getItem("user");
+      const Username = localStorage.getItem("user");
       const token = localStorage.getItem("token");
       axios
         .delete(
-          `https://the-cine-file.herokuapp.com/users/${username}`,
+          `https://the-cine-file.herokuapp.com/users/${Username}`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -114,11 +114,12 @@ export class ProfileView extends React.Component {
   };
   removeFavoriteMovie = (movieId) => {
     // e.preventDefault();
-    const username = localStorage.getItem("user");
+    const Username = localStorage.getItem("user");
+    console.log("username", Username);
     const token = localStorage.getItem("token");
     axios
       .delete(
-        `https://the-cine-file.herokuapp.com/users/${username}/Favorites/${movieId}`,
+        `https://the-cine-file.herokuapp.com/users/${Username}/Favorites/${movieId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -135,7 +136,7 @@ export class ProfileView extends React.Component {
 
   setUsername(value) {
     this.setState({
-      username: value,
+      Username: value,
     });
   }
 
@@ -158,8 +159,8 @@ export class ProfileView extends React.Component {
   }
 
   render() {
-    const { movies, username } = this.props;
-    const { FavoriteMovies, Email, Birthday } = this.state;
+    const { movies } = this.props;
+    const { FavoriteMovies, Email, Birthday, Username } = this.state;
 
     const favoriteMovie = FavoriteMovies.map((movieId) =>
       movies.find((movie) => movie._id === movieId)
@@ -172,9 +173,9 @@ export class ProfileView extends React.Component {
             <h4>Your Account</h4>
             <Card>
               <Card.Body>
-                <Card.Text>Username: {username}</Card.Text>
+                <Card.Text>Username: {Username}</Card.Text>
                 <Card.Text>Email: {Email}</Card.Text>
-                {/* {console.log("user", username)} */}
+                {console.log("user", Username)}
                 <Card.Text>
                   Birthday: {Birthday}
                 </Card.Text>
@@ -192,7 +193,7 @@ export class ProfileView extends React.Component {
                   <Form.Control
                     type='text'
                     name='Username'
-                    placeholder={this.state.username}
+                    placeholder={this.state.Username}
                     onChange={(e) => this.setUsername(e.target.value)}
                     required
                   />
