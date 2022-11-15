@@ -12,8 +12,8 @@ import {
 // import moment from "moment";
 import { Link } from "react-router-dom";
 import "./profile-view.scss";
-// import { connect } from "react-redux";
-// import { setUser, setMovies } from "../../actions/actions";
+import { connect } from "react-redux";
+import { setUser, setMovies } from "../../actions/actions";
 
 export class ProfileView extends React.Component {
   constructor() {
@@ -286,11 +286,11 @@ export class ProfileView extends React.Component {
   }
 }
 
-// let mapStateToProps = (state) => {
-//   return {
-//     user: state.user,
-//     movies: state.movies,
-//   };
-// };
+let mapStateToProps = (state) => {
+  return {
+    user: state.user,
+    movies: state.movies,
+  };
+};
 
-export default (ProfileView);
+export default connect(mapStateToProps, { setUser, setMovies })(ProfileView);

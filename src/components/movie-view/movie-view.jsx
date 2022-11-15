@@ -1,5 +1,5 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { Card, Row, Col, Container, Button } from 'react-bootstrap';
 
 import { Link } from "react-router-dom";
@@ -73,20 +73,3 @@ export class MovieView extends React.Component {
 }
 
 export default MovieView;
-// MovieView.propTypes = {
-//     movie: PropTypes.shape({
-//         Title: PropTypes.string.isRequired,
-//         Description: PropTypes.string.isRequired,
-//         ImagePath: PropTypes.string.isRequired,
-//         Genre: PropTypes.shape({
-//             Name: PropTypes.string.isRequired,
-//             Description: PropTypes.string.isRequired,
-//         }).isRequired,
-//         Director: PropTypes.shape({
-//                 Name: PropTypes.string.isRequired,
-//                 Bio: PropTypes.string.isRequired,
-//                 Birth: PropTypes.string.isRequired,
-//             }).isRequired,
-//         }).isRequired,
-//         onBackClick: PropTypes.func.isRequired,
-// };

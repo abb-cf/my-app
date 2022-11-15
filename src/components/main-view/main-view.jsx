@@ -17,14 +17,13 @@ import { GenreView } from '../genre-view/genre-view';
 import { DirectorView } from '../director-view/director-view';
 import { ProfileView } from '../profile-view/profile-view';
 
-import { setMovies } from '../../actions/actions.js';
+import { setMovies, setUser, setFavorite, deleteFavorite, } from '../../actions/actions.js';
 import MoviesList from '../movies-list/movies-list';
 
 class MainView extends React.Component {
     
     constructor() {
         super();
-
         this.state = {
             user: null,
             favoriteMovies: []
@@ -35,11 +34,22 @@ class MainView extends React.Component {
     componentDidMount(){
         let accessToken = localStorage.getItem('token');
         if (accessToken !== null) {
-            this.setState({
-                user: localStorage.getItem('user')
-            });
+            this.getMovies(accessToken)
             this.getMovies(accessToken);
         }
+    }
+
+    getUser(token) {
+        const user = localStorage.getItem('user');
+        axios.get(`https://the-cine-file.herokuapp.com/users/${user}`, {
+            headers: { Authorization: `Bearer ${token}` }
+          })
+          .then(response => {
+            this.props.setUser(response.data);
+          })
+          .catch(error => {
+            console.log(error.response);
+          })
     }
 
     getMovies(token) {
@@ -66,11 +76,13 @@ class MainView extends React.Component {
         this.getMovies(authData.token);
     }
 
+
     render() {
         // return(<div>Title</div>)
         
         let { movies } = this.props;
-        let { user, favoriteMovies } = this.state;
+        let { user } = this.state;
+
         return (
             <Router>
                 <NavBar user={user} />
@@ -113,7 +125,7 @@ class MainView extends React.Component {
                             if (movies.length === 0) return <div className="main-view" />;
                             return (
                                 <Col md={8}>
-                                <MovieView
+                                <MovieView user={user}
                                 movie={movies.find(m => m._id === match.params.movieId)}
                                 onBackClick={() => history.goBack()}
                                 />
@@ -126,7 +138,7 @@ class MainView extends React.Component {
                         render={({ match, history }) => {
                             if (!user)
                             return (
-                                <Col>
+                                <Col xs={12}>
                                     <LoginView onLoggedIn={(user) => this.onLoggedIn(user)} />
                                 </Col>
                             );
@@ -146,6 +158,11 @@ class MainView extends React.Component {
                         path="/directors/:name"
                         render={({ match, history }) => {
                             if (movies.length === 0) return (<div className="main-view" />);
+                            if (!user) return (
+                                <Col xs={12}>
+                                    <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                                </Col>
+                            )
                             return (
                                 <Col md={8}>
                                     <DirectorView 
@@ -160,17 +177,15 @@ class MainView extends React.Component {
                     <Route 
                     path={`/users/:username`} 
                         render={({history, match}) => {
-                        if (!user) return <LoginView onLoggedIn={user => this.onLoggedIn(user)} />
+                        if (!user) { return <Redirect to="/" /> }
                         if (movies.length === 0) return (<div className="main-view" />);
                         return (
                         <Col>
                             <ProfileView 
                                 history={history} 
                                 movies={movies} 
-                                // favoriteMovies={favoriteMovies.map((movieId) => {
-                                    // return movies.find((m) => m._id === movieId);
-                                    // })}
-                                user={user === match.params.username} />
+                                handleDeleteFavorite={this.handleDeleteFavorite}
+                                user={user} />
                                 
                         </Col>
                         );
@@ -182,7 +197,10 @@ class MainView extends React.Component {
 }
 
 let mapStateToProps = state => {
-    return { movies: state.movies }
+    return { 
+        movies: state.movies,
+        user: state.user
+    }
 }
 
-export default connect(mapStateToProps, { setMovies } )(MainView);
+export default connect(mapStateToProps, { setMovies, setUser, setFavorite, deleteFavorite } )(MainView);

@@ -3,6 +3,8 @@ import axios from 'axios';
 import PropTypes from 'prop-types';
 import { Button, Col, Row, Container, Card, Form, CardGroup } from 'react-bootstrap';
 
+import './login-view.scss';
+
 export function LoginView(props) {
     const [ username, setUsername ] = useState('');
     const [ password, setPassword ] = useState('');
@@ -46,23 +48,10 @@ export function LoginView(props) {
                 props.onLoggedIn(data);
             })
             .catch((e) => {
-                console.log('no such user')
+                console.log('no such user');
             });
         }
     };
-
-    // const handleRegister = (e) => {
-    //     e.preventDefault();
-        
-    //     axios.post('https://the-cine-file.herokuapp.com/register', {
-    //         Username: username,
-    //         Password: password
-    //     })
-    //     .then(response => {
-    //         const data = response.data;
-    //         props.onRegistration(data);
-    //     });
-    // };
 
     return(
         <Container>
@@ -127,5 +116,5 @@ export function LoginView(props) {
 }
 
 LoginView.propTypes = {
-    onLoggedIn: PropTypes.func.isRequired
+    onLoggedIn: PropTypes.func.isRequired,
 }

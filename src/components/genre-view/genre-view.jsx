@@ -1,6 +1,7 @@
 import React from 'react';
 import { CardGroup, Button, Card, Col } from 'react-bootstrap';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import { Link } from 'react-router-dom';
 
@@ -64,11 +65,11 @@ export class GenreView extends React.Component {
     }
 }
 
-GenreView.propTypes = {
-    movies: PropTypes.array.isRequired,
-    genre: PropTypes.shape({
-        Name: PropTypes.string.isRequired,
-        Description: PropTypes.string.isRequired,
-    }).isRequired,
-    onBackClick: PropTypes.func.isRequired
-};
+const mapStateToProps = (state) => {
+    return {
+        movies: state.movies,
+        user: state.user
+    };
+}
+
+export default connect(mapStateToProps)(GenreView);

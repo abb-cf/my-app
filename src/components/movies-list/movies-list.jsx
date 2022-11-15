@@ -32,4 +32,4 @@ function MoviesList(props) {
     </>;
 }
 
-export default connect(mapStateToProps) (MoviesList);
+export default connect(mapStateToProps)(MoviesList);

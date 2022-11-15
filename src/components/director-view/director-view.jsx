@@ -1,6 +1,7 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { CardGroup, Button, Card, Col } from 'react-bootstrap';
+import { connect } from 'react-redux';
 
 
 import { Link } from 'react-router-dom';
@@ -72,13 +73,13 @@ export class DirectorView extends React.Component {
     }
 }
 
-DirectorView.propTypes = {
-    movies:PropTypes.array.isRequired,
-    director: PropTypes.shape({
-        Name: PropTypes.string.isRequired,
-        Bio: PropTypes.string.isRequired,
-        Birth: PropTypes.string.isRequired,
-        Death: PropTypes.string.isRequired,
-    }).isRequired,
-    onBackClick: PropTypes.func.isRequired,
-};
+const mapStateToProps = (state) => {
+    return {
+        movies: state.movies,
+        user: state.user
+    };
+}
+
+export default connect(mapStateToProps)(DirectorView);
+
+
