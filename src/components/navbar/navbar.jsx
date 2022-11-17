@@ -31,7 +31,7 @@ export function NavBar({ user }) {
                     Cine-File
                 </Navbar.Brand>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
-                <Navbar.Collapse id="responsive-navbar-nav">
+                <Navbar.Collapse id="responsive-navbar-nav" className="justify-content-end">
                     <Nav className="ml-auto">
                     {isAuth() && (
                         <Nav.Link as={Link} to={`/users/${user}`}>

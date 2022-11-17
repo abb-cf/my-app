@@ -34,7 +34,7 @@ export class MovieView extends React.Component {
         return (
             <Container>
                 <Row>
-                    <Col>
+                    <Col className="testCol">
                         <Card>
                             <Card.Img
                                 variant="top"

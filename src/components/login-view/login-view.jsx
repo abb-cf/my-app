@@ -54,15 +54,15 @@ export function LoginView(props) {
     };
 
     return(
-        <Container>
+        <Container className='registration' sm={4} md={6} lg={8} xl={8}>
             <Row>
-                <Col md={8}>
+                <Col xs={6} sm={6} md={8}>
                     <CardGroup>
                         <Card style={{ marginTop: 100, marginBottom: 50, width: '30rem' }}>
                             <Card.Body>
-                                <Card.Title>Please Login</Card.Title>
+                                <Card.Title className='text-center mb-4'>Please Login</Card.Title>
                                 <Form>
-                                    <Form.Group controlId="formUsername">
+                                    <Form.Group className='mb-3'>
                                         <Form.Label>Username:</Form.Label>
                                         <Form.Control 
                                         type="text" 
@@ -74,7 +74,7 @@ export function LoginView(props) {
                                         {usernameErr && <p>{usernameErr}</p>}
                                     </Form.Group>
                     
-                                    <Form.Group controlId="formPassword">
+                                    <Form.Group className='mb-3'>
                                         <Form.Label>Password:</Form.Label>
                                         <Form.Control 
                                         type="password" 
@@ -86,9 +86,9 @@ export function LoginView(props) {
                                         {passwordErr && <p>{passwordErr}</p>}
                                     </Form.Group>
 
-                                    <div>
+                                    <div className='d-grip gap-2'>
                                     <Button 
-                                        className="mt-1"
+                                        className='d-flex justify-content-center'
                                         variant="primary" 
                                         type="submit" 
                                         onClick={handleSubmit}>
@@ -96,11 +96,12 @@ export function LoginView(props) {
                                     </Button>
                                     </div>
                                     <p></p>
-                                    <p>
+                                    <p className='mt-5 text-center'>
                                     Dont have an account? <br />
                                     <Button 
+                                        className="mt-2 d-flex justify-content-center"
                                         href={"/register"}
-                                        variant="secondary" 
+                                        variant="primary" 
                                         type="submit">
                                         Register
                                     </Button>  
