@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 .gitmodules
+my-app
 
 # testing
 /coverage
