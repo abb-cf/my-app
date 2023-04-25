@@ -2,7 +2,7 @@
 
 _A single-page, responsive app with routing, rich interactions, several interface views, and a polished user experience. This is the client-side that supports the existing server side of a database of movies, movie information and users._
 
-Cine-File allows users to register an account and login to see a list of movies. When a movie is clicked on, users can read movie synopses and find further information about the movie's genre and director. If a user wants to create a list of favorite movies, they can favorite the movie and find the list under their user profile. On their profile, users can view and edit their username, password, birthdate and list of favorites. 
+Cine-File allows users to register an account and login to see a list of movies. When a movie is clicked on, users can read movie synopses and find further information about the movie's genre and director. If a user wants to create a list of favorite movies, they can favorite the movie and find the list under their user profile. On their profile, users can view and edit their username, password, birthdate and list of favorite movies. 
 
 *Find the application live at https://cine-file.netlify.app/*
 
