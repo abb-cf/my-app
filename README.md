@@ -1,4 +1,12 @@
-# Getting Started with Create React App
+# CINE-FILE - created with Create React App
+
+_A single-page, responsive app with routing, rich interactions, several interface views, and a polished user experience. This is the client-side that supports the existing server side of a database of movies, movie information and users._
+
+Cine-File allows users to register an account and login to see a list of movies. When a movie is clicked on, users can read movie synopses and find further information about the movie's genre and director. If a user wants to create a list of favorite movies, they can favorite the movie and find the list under their user profile. On their profile, users can view and edit their username, password, birthdate and list of favorites. 
+
+*Find the application live at https://cine-file.netlify.app/*
+
+
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
@@ -45,29 +53,6 @@ You can learn more in the [Create React App documentation](https://facebook.gith
 
 To learn React, check out the [React documentation](https://reactjs.org/).
 
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
 
 Styling:
 Background:
